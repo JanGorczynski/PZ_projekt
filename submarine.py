@@ -54,6 +54,7 @@ class Submarine:
                 min_dist = d
         prob = detection_probability(min_dist, detection_range=100.0)
         return (bx, by, bz), prob
+
 def simulate_random(Z, submarines, wrecks, time_steps=200):
     history = []
     for _ in range(time_steps):
