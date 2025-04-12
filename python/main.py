@@ -11,19 +11,25 @@ if __name__ == "__main__":
 
     if len(sys.argv) > 1:
         N = int(sys.argv[1])
-        print(f"N: {N}")
+        # print(f"N: {N}")
 
     hills_num = 8
 
     if len(sys.argv) > 2:
         hills_num = int(sys.argv[2])
-        print(f"hills num: {hills_num}")
+        # print(f"hills num: {hills_num}")
 
     wrecks_num = 8
 
     if len(sys.argv) > 3:
         wrecks_num = int(sys.argv[3])
-        print(f"wrecks num: {wrecks_num}")
+        # print(f"wrecks num: {wrecks_num}")
+
+    submarine_num = 3
+
+    if len(sys.argv) > 4:
+        submarine_num = int(sys.argv[4])
+        # print(f"Submarine: {wrecks_num}")
 
     Z = get_random_sea_floor(hills_num)
     add_wrecks(wrecks_num)
@@ -31,7 +37,7 @@ if __name__ == "__main__":
     wrecks = wrecs_coordinates[:]
     max_hill = np.max(Z)
     subs = []
-    for _ in range(3):
+    for _ in range(submarine_num):
         x = random.randint(0, N - 1)
         y = random.randint(0, N - 1)
         ground = Z[x, y]

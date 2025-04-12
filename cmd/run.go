@@ -26,11 +26,12 @@ to quickly create a Cobra application.`,
 		size, _ := cmd.Flags().GetInt("size")
 		hillsNumber, _ := cmd.Flags().GetInt("hills")
 		wrecksNumber, _ := cmd.Flags().GetInt("wrecks")
+		submarine, _ := cmd.Flags().GetInt("submarine")
 
-		fmt.Printf("Running simulation with size:%d, hills:%d, wrecks:%d\n", size, hillsNumber, wrecksNumber)
+		fmt.Printf("Running simulation with size:%d, hills:%d, wrecks:%d, submarine:%d\n", size, hillsNumber, wrecksNumber, submarine)
 
 		pythonScript := exec.Command("python3", "./python/main.py", strconv.Itoa(size), strconv.Itoa(hillsNumber),
-			strconv.Itoa(wrecksNumber))
+			strconv.Itoa(wrecksNumber), strconv.Itoa(submarine))
 		_, err := pythonScript.Output()
 
 		if err != nil {
@@ -48,6 +49,7 @@ func init() {
 	runCmd.Flags().Int("size", 1000, "Seafloor size")
 	runCmd.Flags().Int("hills", 8, "Number of hills")
 	runCmd.Flags().Int("wrecks", 8, "Number of wrecks")
+	runCmd.Flags().Int("submarine", 3, "Number of submarine")
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
