@@ -7,7 +7,7 @@ from submarine import Submarine, simulate_random
 from world_generation import get_random_sea_floor, add_wrecks, wrecs_coordinates
 
 if __name__ == "__main__":
-    N = 1000
+    N = 998
 
     if len(sys.argv) > 1:
         N = int(sys.argv[1])
@@ -31,8 +31,8 @@ if __name__ == "__main__":
         submarine_num = int(sys.argv[4])
         # print(f"Submarine: {wrecks_num}")
 
-    Z = get_random_sea_floor(hills_num)
-    add_wrecks(wrecks_num)
+    Z = get_random_sea_floor(hills_num, N)
+    add_wrecks(wrecks_num, N)
 
     wrecks = wrecs_coordinates[:]
     max_hill = np.max(Z)

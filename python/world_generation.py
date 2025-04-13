@@ -4,7 +4,6 @@ from mpl_toolkits.mplot3d import Axes3D
 import seaborn as sns
 import random
 
-N = 1000
 hills_coordinates = []
 wrecs_coordinates = []
 
@@ -16,7 +15,7 @@ def add_hill(Z,N,x_hill,y_hill,radius,height):
                 hills_coordinates.append((x,y,Z[x,y]))
     return  Z
 
-def get_random_sea_floor(hill_number: int = 8):
+def get_random_sea_floor(hill_number: int = 8, N=1000):
     
     Z = np.zeros((N,N))
     for _ in range(hill_number):
@@ -27,7 +26,7 @@ def get_random_sea_floor(hill_number: int = 8):
         Z = add_hill(Z,N,X_hill,Y_hill,radius,height)
     return Z
 
-def add_wrecks(n: int = 8):
+def add_wrecks(n: int = 8, N=1000):
 
     hills_wrecks = int(n/4)
     number_of_wrecks=0
@@ -51,7 +50,7 @@ def add_wrecks(n: int = 8):
               wrecs_coordinates.append((X, Y, 0))
               number_of_wrecks += 1
 
-def draw_sea_floor(Z):
+def draw_sea_floor(Z, N=1000):
     X = np.linspace(0, N-1, N)
     Y = np.linspace(0, N-1, N)
     X, Y = np.meshgrid(X, Y)
