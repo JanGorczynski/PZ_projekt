@@ -10,7 +10,7 @@ go install
 ```bash
 oceangate run --size 1000 --hills 7 --wrecks 9 --submarine 4
 ```
-## How to build docker images and run docker container
+## How to build docker image and run docker container
 ```bash
 docker build -t oceangate .
 docker run -e SIZE=1000 -e HILLS=5 -e WRECKS=8 -e SUBMARINE=1 -v ./:/app/ oceangate
@@ -18,4 +18,8 @@ docker run -e SIZE=1000 -e HILLS=5 -e WRECKS=8 -e SUBMARINE=1 -v ./:/app/ oceang
 or
 ```bash
 docker run oceangate -v ./:/app/ 
+```
+## Run app by docker-compose
+```bash
+docker compose up
 ```
