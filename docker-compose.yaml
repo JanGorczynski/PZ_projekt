@@ -1,0 +1,28 @@
+services:
+  db:
+    build: db/
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data 
+    networks:
+      - appnet
+  app:
+    build: .
+    restart: always
+    depends_on:
+      - db
+    environment:
+      SIZE: 1000
+      HILLS: 12
+      WRECKS: 3
+      SUBMARINE: 7
+    volumes:
+      - ./:/app/
+    networks:
+      - appnet
+
+volumes:
+  pgdata:
+
+networks:
+  appnet:
