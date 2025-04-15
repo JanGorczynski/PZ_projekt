@@ -4,6 +4,7 @@
 - make sure go is installed
 - In the working directory execute
 ```bash
+go mod download
 go install
 ```
 - Run the simulation
