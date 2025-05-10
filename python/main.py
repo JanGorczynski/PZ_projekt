@@ -1,13 +1,13 @@
 import sys
 import numpy as np
 import random
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 from submarine import Submarine, simulate_random
 from world_generation import get_random_sea_floor, add_wrecks, wrecs_coordinates
+import json
+from plot import plot_simulation
 
 if __name__ == "__main__":
-    N = 998
+    N = 10
 
     if len(sys.argv) > 1:
         N = int(sys.argv[1])
@@ -43,43 +43,34 @@ if __name__ == "__main__":
         ground = Z[x, y]
         altitude = max_hill + 5
         subs.append(Submarine(x, y, z=altitude, speed=2.0))
-    history = simulate_random(Z, subs, wrecks, time_steps=1000)
+    history = simulate_random(Z, subs, wrecks, time_steps=100)
 
     paths_x = [[] for _ in subs]
     paths_y = [[] for _ in subs]
     paths_z = [[] for _ in subs]
+    prob = [[] for _ in subs]
+
     for step_data in history:
         for i, data in enumerate(step_data):
             px, py, pz = data['pos']
             paths_x[i].append(px)
             paths_y[i].append(py)
             paths_z[i].append(pz)
+            prob[i].append(data['prob'])
 
-    fig = plt.figure(figsize=(10, 8))
-    ax = fig.add_subplot(111, projection='3d')
-
-    # Plot sea floor
-    x_coords = np.arange(N)
-    y_coords = np.arange(N)
-    X, Y = np.meshgrid(x_coords, y_coords)
-    ax.plot_surface(X, Y, Z, cmap='viridis', alpha=0.7)
-
-    # Plot submarine paths
+    submarines_data = []
     for i in range(len(subs)):
-        ax.plot(paths_x[i], paths_y[i], paths_z[i], label=f"Submarine {i + 1}")
+        path_points = [
+            {"x": x, "y": y, "z": z, "prob": prob}
+            for x, y, z, prob in zip(paths_x[i], paths_y[i], paths_z[i], prob[i])
+        ]
+        submarines_data.append({
+            "id": i,
+            "path": path_points
+        })
 
-    # Plot wrecks
-    wx = [wreck[0] for wreck in wrecks]
-    wy = [wreck[1] for wreck in wrecks]
-    wz = [wreck[2] for wreck in wrecks]
-    ax.scatter(wx, wy, [z + 1 for z in wz], c='red', marker='x', s=100, label='Wrecks')
+    print(json.dumps({"submarines": submarines_data, "seafloor": Z.tolist(), "dimension": N, "wrecks": wrecks}, indent=2))
 
-    ax.set_xlabel('X')
-    ax.set_ylabel('Y')
-    ax.set_zlabel('Z')
-    ax.set_zlim(0, 100)
-    ax.legend()
 
-    plt.tight_layout()
-    plt.savefig("submarine_simulation_matplotlib.png", dpi=300, bbox_inches='tight')
-    plt.show()
+    plot_simulation(N, Z, paths_x, paths_y, paths_z, wrecks)
+

@@ -23,4 +23,4 @@ RUN go install
 
 ENV SIZE=1000 HILLS=7 WRECKS=9 SUBMARINE=4
 
-ENTRYPOINT ["sh", "-c", "oceangate run --size $SIZE --hills $HILLS --wrecks $WRECKS --submarine $SUBMARINE"]
+ENTRYPOINT ["sh", "-c", "sleep 3600"]

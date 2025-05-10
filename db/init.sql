@@ -1,8 +1,24 @@
-CREATE TABLE Wrecks (
-    id SERIAL PRIMARY KEY,
-    wreck_id INTEGER,
-    x_coord FLOAT,
-    y_coord FLOAT,
-    z_coord FLOAT,
-    probability FLOAT
-);
+-- CREATE TABLE IF NOT EXISTS submarines (
+--   id SERIAL PRIMARY KEY
+--   simulation_id INTEGER NOT NULL,
+--   submarine_id INTEGER NOT NULL,
+--   step_number INTEGER NOT NULL,
+--   x FLOAT NOT NULL,
+--   y FLOAT NOT NULL,
+--   z FLOAT NOT NULL,
+--   Foreign Key (simulation_id) REFERENCES simulations(id),
+-- );
+--
+-- CREATE TABLE IF NOT EXISTS simulations (
+--   id SERIAL PRIMARY KEY,
+--   simulation_name VARCHAR(255) NOT NULL,
+--   sim_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+-- );
+--
+-- CREATE TABLE IF NOT EXISTS sea_floors (
+--   simulation_id INTEGER NOT NULL,
+--   x INTEGER NOT NULL,
+--   y INTEGER NOT NULL,
+--   height FLOAT NOT NULL,
+--   PRIMARY KEY (simulation_id, x, y),
+-- );

@@ -3,7 +3,7 @@ services:
     build: db/
     restart: always
     volumes:
-      - pgdata:/var/lib/postgresql/data 
+      - pgdata:/var/lib/postgresql/data
     networks:
       - appnet
   app:
