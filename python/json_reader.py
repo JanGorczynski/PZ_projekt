@@ -1,5 +1,12 @@
 import json
 import numpy as np
+
+# This script reads simulation data from a JSON file, including submarine paths, seafloor topography, wreck positions, and grid dimensions.
+# It parses the data into structured NumPy arrays and lists for further analysis or visualization.
+# Submarine path coordinates (x, y, z) and detection probabilities are extracted step by step.
+# The function returns all relevant data for downstream use in simulations or plots.
+
+
 def read_data_from_json(file_path):
 
 

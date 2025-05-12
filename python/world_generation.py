@@ -4,6 +4,9 @@ from mpl_toolkits.mplot3d import Axes3D
 import seaborn as sns
 import random
 
+# This script generates a random 3D sea floor terrain using hills and places wrecks both on hills and flat areas.
+# It uses NumPy and Matplotlib for terrain creation and visualization, while storing coordinates of hills and wrecks for later use.
+
 hills_coordinates = []
 wrecs_coordinates = []
 

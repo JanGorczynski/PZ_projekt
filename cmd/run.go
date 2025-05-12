@@ -13,6 +13,8 @@ import (
 	"time"
 )
 
+// run: Executes the submarine simulation by invoking a Python script and saves the result to the database.
+
 var run = &cobra.Command{
 	Use:   "run",
 	Short: "Run the submarine simulation and store in DB",
@@ -55,6 +57,8 @@ var run = &cobra.Command{
 	},
 }
 
+// simulationHistory: Retrieves and displays past simulations between two dates.
+
 var simulationHistory = &cobra.Command{
 	Use:   "history",
 	Short: "Show simulation history",
@@ -93,6 +97,8 @@ var simulationHistory = &cobra.Command{
 	},
 }
 
+// prediction: Runs Python script to predict future submarine paths based on simulation ID.
+
 var prediction = &cobra.Command{
 	Use:   "predict",
 	Short: "Predict submarine path based on simulation data",
@@ -128,6 +134,8 @@ var prediction = &cobra.Command{
 		}
 	},
 }
+
+// heatmap: Generates a heatmap visualization of probability data from a simulation.
 
 var heatmap = &cobra.Command{
 	Use:   "heatmap",
@@ -165,6 +173,8 @@ var heatmap = &cobra.Command{
 	},
 }
 
+// plot: Generates a plot visualization of the submarine simulation based on simulation ID.
+
 var plot = &cobra.Command{
 	Use:   "plot",
 	Short: "Plot simulation data",
@@ -200,6 +210,8 @@ var plot = &cobra.Command{
 		}
 	},
 }
+
+// init: Initializes CLI commands and sets default flag values.
 
 func init() {
 	dateNow := time.Now().Format("2006-01-02_15-04-05")

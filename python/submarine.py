@@ -1,6 +1,11 @@
 import numpy as np
 import random
 
+# This module simulates submarine movement and wreck detection in a 3D underwater grid.
+# Each submarine autonomously navigates toward randomly selected waypoints on the sea floor
+# and estimates its proximity to the nearest wreck using a distance-based probability model.
+# The simulation runs for a set number of time steps, recording each submarine's position and detection probability at each step.
+
 def detection_probability(distance, detection_range=100.0):
     if distance <= detection_range:
         return 1.0

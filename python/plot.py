@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 import json
 from json_reader import read_data_from_json
 
+# This script visualizes submarine simulation data in 3D using Matplotlib.
+# It plots the sea floor, submarine paths, and wreck locations based on data read from a JSON file.
+# The generated visualization is displayed and also saved as a PNG image.
 
 def plot_simulation(N, Z, paths_x, paths_y, paths_z, wrecks):
     fig = plt.figure(figsize=(10, 8))

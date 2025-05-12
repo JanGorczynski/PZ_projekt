@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+// SQL schema definition for initializing the database with necessary tables
+
 var initSQL = `
 CREATE TABLE IF NOT EXISTS simulations (
   id SERIAL PRIMARY KEY,
@@ -48,6 +50,8 @@ CREATE TABLE IF NOT EXISTS wrecks (
 );
 `
 
+// connect establishes a connection to the PostgreSQL database and initializes the schema
+
 func connect() (*sql.DB, error) {
 	dbConnStr := fmt.Sprintf("user=%s password=%s dbname=%s host=%s port=%s sslmode=disable",
 		"postgres", "pz4team2", "postgres", "db", "5432")
@@ -70,6 +74,8 @@ func connect() (*sql.DB, error) {
 	return db, nil
 }
 
+// SaveSubmarines stores the path data of each submarine step-by-step into the database
+
 func SaveSubmarines(simulationID int, data []models.Submarine) {
 	db, err := connect()
 	if err != nil {
@@ -91,6 +97,8 @@ func SaveSubmarines(simulationID int, data []models.Submarine) {
 	fmt.Println("Submarine data saved to database.")
 }
 
+// SaveSimulation inserts a simulation record and returns the generated simulation ID
+
 func SaveSimulation(data models.Simulation) int {
 	db, err := connect()
 	if err != nil {
@@ -108,6 +116,8 @@ func SaveSimulation(data models.Simulation) int {
 	fmt.Printf("Simulation saved with ID: %d\n", simulationID)
 	return simulationID
 }
+
+// GetSimulationsHistory retrieves simulation records between two given dates
 
 func GetSimulationsHistory(start, end time.Time) ([]models.Simulation, error) {
 	db, err := connect()
@@ -135,6 +145,8 @@ func GetSimulationsHistory(start, end time.Time) ([]models.Simulation, error) {
 	return simulations, nil
 }
 
+// SaveWrecks saves wreck data associated with a simulation into the database
+
 func SaveWrecks(simulationID int, wrecks [][]float64) {
 	db, err := connect()
 	if err != nil {
@@ -154,6 +166,8 @@ func SaveWrecks(simulationID int, wrecks [][]float64) {
 	fmt.Println("Wreck data saved to database.")
 }
 
+// SaveSeaFloor inserts or updates the sea floor height data for a given simulation
+
 func SaveSeaFloor(simulationID int, Z [][]float64) {
 	db, err := connect()
 	if err != nil {
@@ -172,6 +186,8 @@ func SaveSeaFloor(simulationID int, Z [][]float64) {
 		}
 	}
 }
+
+// GetSimulationDetails retrieves all data (metadata, seafloor, submarines, wrecks) for a simulation
 
 func GetSimulationDetails(simulationID int) (map[string]interface{}, error) {
 	db, err := connect()
