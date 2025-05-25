@@ -114,6 +114,7 @@ func SaveSimulation(data models.Simulation) int {
 	}
 
 	fmt.Printf("Simulation saved with ID: %d\n", simulationID)
+	fmt.Printf("Please wait for trasfrering simulation data to the database...\n")
 	return simulationID
 }
 
@@ -199,7 +200,8 @@ func GetSimulationDetails(simulationID int) (map[string]interface{}, error) {
 	// Retrieve simulation metadata
 	println("simulationID", simulationID)
 	var dimension int
-	err = db.QueryRow(`SELECT dimension FROM simulations WHERE id = $1`, simulationID).Scan(&dimension)
+	var simulationName string
+	err = db.QueryRow(`SELECT simulation_name, dimension FROM simulations WHERE id = $1`, simulationID).Scan(&simulationName, &dimension)
 	if err != nil {
 		return nil, fmt.Errorf("failed to retrieve simulation metadata: %v", err)
 	}
@@ -268,10 +270,11 @@ func GetSimulationDetails(simulationID int) (map[string]interface{}, error) {
 
 	// Build the final JSON structure
 	data := map[string]interface{}{
-		"submarines": submarines,
-		"seafloor":   seafloor,
-		"dimension":  dimension,
-		"wrecks":     wrecks,
+		"simulationName": simulationName,
+		"submarines":     submarines,
+		"seafloor":       seafloor,
+		"dimension":      dimension,
+		"wrecks":         wrecks,
 	}
 
 	return data, nil

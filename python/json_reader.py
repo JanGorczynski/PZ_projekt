@@ -17,6 +17,7 @@ def read_data_from_json(file_path):
     seafloor = json_data['seafloor']
     dimension = json_data['dimension']
     wrecks = json_data['wrecks']
+    sim_name = json_data['simulationName']
 
 
     Z = np.array(seafloor)
@@ -39,4 +40,4 @@ def read_data_from_json(file_path):
 
 
 
-    return dimension, Z, paths_x, paths_y, paths_z, wrecks, prob
+    return dimension, Z, paths_x, paths_y, paths_z, wrecks, prob, sim_name

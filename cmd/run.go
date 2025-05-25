@@ -9,7 +9,9 @@ import (
 	"oceangate/models"
 	"os"
 	"os/exec"
+	"path"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -25,10 +27,11 @@ var run = &cobra.Command{
 		hillsNumber, _ := cmd.Flags().GetInt("hills")
 		wrecksNumber, _ := cmd.Flags().GetInt("wrecks")
 		submarine, _ := cmd.Flags().GetInt("submarine")
+		simName := cmd.Flag("name").Value.String()
 
 		fmt.Printf("Running simulation with size:%d, hills:%d, wrecks:%d, submarine:%d\n", size, hillsNumber, wrecksNumber, submarine)
 
-		pythonScript := exec.Command("python3", "./python/main.py", strconv.Itoa(size), strconv.Itoa(hillsNumber), strconv.Itoa(wrecksNumber), strconv.Itoa(submarine))
+		pythonScript := exec.Command("python3", "./python/main.py", strconv.Itoa(size), strconv.Itoa(hillsNumber), strconv.Itoa(wrecksNumber), strconv.Itoa(submarine), simName)
 		output, err := pythonScript.CombinedOutput()
 
 		if err != nil {
@@ -48,7 +51,7 @@ var run = &cobra.Command{
 		}
 
 		id := db.SaveSimulation(models.Simulation{
-			Name:      cmd.Flag("name").Value.String(),
+			Name:      simName,
 			Dimension: data.Dimension,
 		})
 		db.SaveSeaFloor(id, data.MaxDepth)
@@ -118,12 +121,18 @@ var prediction = &cobra.Command{
 			log.Fatalf("Error marshaling data: %v", err)
 		}
 
-		_ = os.WriteFile("./simulation_data/simulation.json", jsonData, 0644)
+		simulationName := data["simulation_name"].(string)
+
+		strings.Replace(simulationName, " ", "_", -1)
+
+		simDataPath := path.Join("./simulation_data", simulationName+".json")
+
+		_ = os.WriteFile(simDataPath, jsonData, 0644)
 
 		pythonScript := exec.Command(
 			"python3",
 			"./python/prediction.py",
-			"./simulation_data/simulation.json",
+			simDataPath,
 		)
 
 		output, err := pythonScript.CombinedOutput()
@@ -156,12 +165,17 @@ var heatmap = &cobra.Command{
 			log.Fatalf("Error marshaling data: %v", err)
 		}
 
-		_ = os.WriteFile("./simulation_data/simulation.json", jsonData, 0644)
+		simulationName := data["simulation_name"].(string)
 
+		strings.Replace(simulationName, " ", "_", -1)
+
+		simDataPath := path.Join("./simulation_data", simulationName+".json")
+
+		_ = os.WriteFile(simDataPath, jsonData, 0644)
 		pythonScript := exec.Command(
 			"python3",
 			"./python/heatmap.py",
-			"./simulation_data/simulation.json",
+			simDataPath,
 		)
 
 		output, err := pythonScript.CombinedOutput()
@@ -194,12 +208,18 @@ var plot = &cobra.Command{
 			log.Fatalf("Error marshaling data: %v", err)
 		}
 
-		_ = os.WriteFile("./simulation_data/simulation.json", jsonData, 0644)
+		simulationName := data["simulationName"].(string)
+
+		strings.Replace(simulationName, " ", "_", -1)
+
+		simDataPath := path.Join("./simulation_data", simulationName+".json")
+
+		_ = os.WriteFile(simDataPath, jsonData, 0644)
 
 		pythonScript := exec.Command(
 			"python3",
 			"./python/plot.py",
-			"./simulation_data/simulation.json",
+			simDataPath,
 		)
 
 		output, err := pythonScript.CombinedOutput()

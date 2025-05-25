@@ -31,6 +31,10 @@ if __name__ == "__main__":
         submarine_num = int(sys.argv[4])
         # print(f"Submarine: {wrecks_num}")
 
+    sim_name = "simulation"
+    if len(sys.argv) > 5:
+        sim_name = sys.argv[5]
+
     Z = get_random_sea_floor(hills_num, N)
     add_wrecks(wrecks_num, N)
 
@@ -69,8 +73,8 @@ if __name__ == "__main__":
             "path": path_points
         })
 
-    print(json.dumps({"submarines": submarines_data, "seafloor": Z.tolist(), "dimension": N, "wrecks": wrecks}, indent=2))
+    print(json.dumps({"submarines": submarines_data, "seafloor": Z.tolist(), "dimension": N, "wrecks": wrecks, "simulationName": sim_name}, indent=2))
 
 
-    plot_simulation(N, Z, paths_x, paths_y, paths_z, wrecks)
+    plot_simulation(N, Z, paths_x, paths_y, paths_z, wrecks, sim_name)
 
