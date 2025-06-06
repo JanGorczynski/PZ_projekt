@@ -165,7 +165,7 @@ var heatmap = &cobra.Command{
 			log.Fatalf("Error marshaling data: %v", err)
 		}
 
-		simulationName := data["simulation_name"].(string)
+		simulationName := data["simulationName"].(string)
 
 		strings.Replace(simulationName, " ", "_", -1)
 
