@@ -27,7 +27,7 @@ def read_data_from_json(file_path):
     paths_x = []
     paths_y = []
     paths_z = []
-    prob = []
+    probs = []
     for submarine in submarines:
         path_x = [point['x'] for point in submarine['path']]
         path_y = [point['y'] for point in submarine['path']]
@@ -36,8 +36,9 @@ def read_data_from_json(file_path):
         paths_x.append(path_x)
         paths_y.append(path_y)
         paths_z.append(path_z)
-        prob.append(one_prob)
+        probs.append(prob)
+#         prob.append(one_prob)
 
 
 
-    return dimension, Z, paths_x, paths_y, paths_z, wrecks, prob, sim_name
+    return dimension, Z, paths_x, paths_y, paths_z, wrecks, probs, sim_name
