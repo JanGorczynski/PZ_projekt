@@ -22,6 +22,10 @@ To actually use commands you need to attach to container terminal
 ```bash
 docker exec -it <container_id> /bin/bash
 ```
+Or if you are using windows:
+```bash
+docker exec -it <container_id> //bin//bash
+```
 Then you can run the commands as described below.
 
 ## Available Commands:
