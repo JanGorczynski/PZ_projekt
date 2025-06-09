@@ -37,7 +37,8 @@ def read_data_from_json(file_path):
         paths_y.append(path_y)
         paths_z.append(path_z)
         # probs.append(prob)
-        prob.append(one_prob)
+        # prob.append(one_prob)
+        probs.append(one_prob)
 
 
 
