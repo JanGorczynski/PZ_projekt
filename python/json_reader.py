@@ -32,11 +32,11 @@ def read_data_from_json(file_path):
         path_x = [point['x'] for point in submarine['path']]
         path_y = [point['y'] for point in submarine['path']]
         path_z = [point['z'] for point in submarine['path']]
-        prob = [point['prob'] for point in submarine['path']]
+        one_prob = [point['prob'] for point in submarine['path']]
         paths_x.append(path_x)
         paths_y.append(path_y)
         paths_z.append(path_z)
-        prob.append(prob)
+        prob.append(one_prob)
 
 
 
