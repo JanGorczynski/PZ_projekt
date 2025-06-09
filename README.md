@@ -56,7 +56,6 @@ oceangate plot --id <int>
 - `--id`: Simulation ID (required)
 
 ### `predict`
-*Not yet implemented*
 
 Predict the submarine path based on simulation data.
 ```bash
@@ -65,7 +64,6 @@ oceangate predict --id <int>
 - `--id`: Simulation ID (required)
 
 ### `heatmap`
-*Not yet implemented*
 
 Generate a heatmap of probabilities from simulation data.
 ```bash
